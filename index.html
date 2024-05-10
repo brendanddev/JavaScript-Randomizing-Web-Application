@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!--AUTHOR: BRENDAN DILEO, 000879513. USE OF BOOTSTRAP, HELP OF W3SCHOOLS, AND FONTAWESOME ELEMENTS-->
+    <!-- SA0001: I BRENDAN JOHN DILEO, 000879513 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else. -->
+    <title>Assignment 3 - Client Side Web Programming</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" type="text/css" href="./node_modules/@fortawesome/fontawesome-free/css/all.css">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="./node_modules/@popperjs/core/dist/umd/popper-base.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</head> <!-- Ends head class -->
+
+<body class="bg-primary">
+    <header id="divHeader" class="container-md">
+        <h1 class="mt-4 bg-warning-subtle text-center text-dark">
+            <i class="fas">Assignment 3</i>
+            <br>
+            <i class="fas font-italic small">Responsive Events</i>
+        </h1>
+        <div id="realTimeClock" class="text-center bg-warning-subtle mx-4">
+        </div>
+        <p class="text-black bg-warning-subtle mb-2 pb-3 border-top border-bottom border-black mt-1 mx-4">
+            <i class="font-italic"> This website focuses on Javascript elements with emphasis on reponsive events and functions.
+                I have a total of 9 images, where the images are split up into 3 themes, each theme having 3 pictures. The pictures themes are 'DC Universe', 'Marvel Universe'
+                and 'Pokemon universe'. Refreshing the page will randoimize the pictures, and the 'time until', which consist of a countdown timer will also cause a refresh. 
+                Additionally, there will be a manual refresh button, and a counter for the number of refreshes. Below the image randomizer, is a gallery of the images,
+                this will use a carousel to display them, with the names of the images on top. Feel free to give it a try!
+            </i>
+        </p>
+    </header> <!--Ends header-->
+
+    <main class="container mt-4 bg-warning-subtle container-fluid">
+        <div id="accordionOne" class="accordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="accordionH2One">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <i id="imagerandomizer" class="fas fa-solid fa-image"> Image Randomizer</i>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="bg-warning-subtle collapse show" aria-labelledby="accordionOne" data-bs-parent="#accordion">
+                    <div class="accordion-body text-center">
+                        <div class="row">
+                            <div class="row border-bottom border-dark text-center">
+                                <h3>
+                                    <i class="font-italic">Here are the images: </i>
+                                </h3>
+                            </div>
+                        </div> <!-- Ends row -->
+                        <div class="row">
+                            <!-- Empty image tags using placeholders for 'src' and 'alt's to ensure w3validation -->
+                            <!-- Triggered via 'onclick' as specified in assignment, image counter increased by 1 -->
+                            <div class="col-lg-3 col-md-3 col-3 d-flex flex-column justify-content-center align-items-center mx-auto">
+                                <img id="image1" src="placeholder.jpg" alt="First Image" onclick="do_animationSpin(event), randomImages(), imageCounter++, setImageCounter();" class="img-fluid">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-3 d-flex flex-column justify-content-center align-items-center mx-auto">
+                                <img id="image2" src="placeholder.jpg" alt="Second Image" onclick="do_animationSpin(event), randomImages(), imageCounter++, setImageCounter();" class="img-fluid">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-3 d-flex flex-column justify-content-center align-items-center mx-auto">
+                                <img id="image3" src="placeholder.jpg" alt="Third Image" onclick="do_animationSpin(event), randomImages(), imageCounter++, setImageCounter();" class="img-fluid">
+                            </div>
+                        </div> <!-- Ends row -->
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-12 d-flex flex-column accordion-body">
+                                <button id="randomButton" class="btn btn-primary btn-block btn-outline-success mt-3 border mx-auto text-light">Randomize</button>
+                            </div>
+                        </div> <!-- Ends row -->
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-4 d-flex flex-column accordion-body">
+                                <!-- Input for automatic refresh timeout -->
+                                <label for="timeoutInput">Timeout: (500 - 10,000ms) </label>
+                                <input type="text" id="timeoutInput" placeholder="Example: 2500">
+                                <!-- Allows user to change refresh timeout given input using 'oncgange' like we used in last assignment -->
+                                <button id="timeoutInputButton" class="btn btn-primary btn-block btn-outline-success border mx-auto mt-1 text-light" onclick="updateTimer()">Change</button>
+                                <span id="timeoutOutput"></span>
+                            </div> <!-- Ends inner accordion body -->
+                            <div class="col-lg-4 col-md-4 col-4 d-flex flex-column accordion-body">
+                                <!-- Countdown timer -->
+                                <p id="countdownTimer">Time until automatic refresh: <span id="timerValue"></span> </p>
+                            </div> <!-- Ends inner accordion body -->
+                            <div class="col-lg-4 col-md-4 col-4 d-flex flex-column accordion-body">
+                                <!-- Tracks the number of time the images have been updates/refreshed -->
+                               <p class="fw-bold">The image has updated <span id="imageUpdateCounter"></span> times</p>
+                            </div> <!--Ends inner accordion body-->
+                        </div> <!-- Ends the row class -->
+                    </div> <!--Ends accordion body-->
+                </div> <!--Ends accordion collapse-->
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="fas fa-images"> Image Gallery</i>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                        <div class="accordion-body bg-warning-subtle">
+                            <div id="carouselImages" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <p class="text-center" id="imagegallery">
+                                            <i class="fas">Batman</i>
+                                        </p>
+                                        <img src="images/batman.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Robin</i>
+                                        </p>
+                                        <img src="images/robin.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Redhood</i>
+                                        </p>
+                                        <img src="images/redhood.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Ironman</i>
+                                        </p>
+                                        <img src="images/ironman.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Hulk</i>
+                                        </p>
+                                        <img src="images/hulk.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Vision</i>
+                                        </p>
+                                        <img src="images/vision.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Dialga</i>
+                                        </p>
+                                        <img src="images/dialga.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Dragonite</i>
+                                        </p>
+                                        <img src="images/dragonite.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <p class="text-center">
+                                            <i class="fas">Meowth</i>
+                                        </p>
+                                        <img src="images/meowth.png" class="d-block w-35 mx-auto" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
+                                    <span class="fas fa-chevron-left text-black" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
+                                    <span class="fas fa-chevron-right text-black" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div> <!-- Ends carousel images div -->
+                        </div> <!-- ends accordion body -->
+                    </div> <!-- ends the second accordion collapse -->
+                </div> <!-- Ends second accordion item -->
+            </div> <!-- Ends accordion item -->
+        </div> <!-- Ends accordion one class -->
+    </main> <!-- Ends main class -->
+    
+    <footer class="container-md mt-5 mb-5 bg-warning-subtle">
+        <div class="pageLinks text-center">
+            <a href="#top">Back to the top</a>
+            <a href="#imagerandomizer">Random Images</a>
+            <a href="#imagegallery">Image Gallery</a>
+        </div>
+        <div class="row justify-content-center">
+            <h3 class="text-dark text-center border-black border-top socials">
+                <i class="font-italic"></i> Socials
+                <br>
+                <a href="https://github.com/"><i class="fab fa-github"></i></a>
+                <a href="https://discord.com/"><i class="fab fa-discord"> </i></a>
+                <a href="https://ca.linkedin.com/"><i class="fab fa-linkedin"> </i></a>
+                <a href="https://www.wix.com/"><i class="fab fa-wix"> </i></a>
+                <a href="https://twitter.com/?lang=en"><i class="fab fa-x-twitter"> </i></a>
+                <a href="https://mail.google.com/mail/u/0/"><i class="fab fa-envelope"> </i></a>
+            </h3>
+        </div>
+        <div class="row justify-content-center">
+            <h4 class="text-dark text-center border-black border-top">
+                <i class="font-italic">© 2024, Brendan Dileo, 000879513, Mohawk College.</i>
+                <br>
+                <i class="font-italic"> Use of Bootstrap, and FontAwesome Elements.</i>
+            </h4>
+        </div>
+    </footer> <!--Ends footer-->
+    <script src="./website.js"></script> <!-- Source to my javascript file -->
+</body> <!--Ends body-->
+
+</html>

@@ -1,0 +1,84 @@
+/**  SA0001: I BRENDAN DILEO, 000879513 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else. **/
+/** AUTHOR: BRENDAN DILEO, 000879513. USE OF BOOTSTRAP, HELP OF W3SCHOOLS, AND FONTAWESOME ELEMENTS **/
+
+/** Spin Animation **/
+/** The class element of class 'spin' is given the 'spin-animation' animation. The timeline/duration will
+ be 0.5 seconds, and will be a linear spin. **/
+.spin {
+    animation: spin-animation 0.5s linear;
+}
+
+/** Keyframes of animation **/
+/** The CSS uses a keyframe animation and targets the animation defined above 'spin-animation'. This is used
+ to manipulate the type of animation used. It starts at 0%, where the animation will not yet move/animate, and
+ then at 360%, the animation should have moved the item 360 degrees. It uses the transform property, and rotate
+ function to actually move the image/item. **/
+@keyframes spin-animation {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+/** Accordion button color change **/
+/** This CSS targets the element of class/class's 'accordion-button'. It changes the background color of the
+ button when it is not open/is collapsed **/
+.accordion-button {
+    background-color: lightblue;
+}
+
+/** Accordion button color change not collapsed **/
+/** This CSS targets the element of class/class's 'accordion-button' when it is not collapsed/is open.
+ This one was a bit trickier to do, as I had to open up the source code on the html page using inspect
+ to see the code. In short, it changes the color of the button when it isnt collapsed. **/
+.accordion-button:not(.collapsed) {
+    color: var(--bs-accordion-active-color);
+    background-color: lightyellow;
+    box-shadow: inset 0 calc(-1* var(--bs-accordion-border-width)) 0 #000000;
+}
+
+/** Targets the pageLinks class's a tags **/
+/** This CSS changes the color of the links to black, and removes the underline by default **/
+.pageLinks a {
+    color: black;
+    text-decoration: none;
+}
+
+/** Targets the pageLinks class's a tags when they are being hovered on **/
+/** This part of the css is triggered then the a tags are being hovered on, and changes the color to blue,
+ and adds an underline on hover **/
+.pageLinks a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+/** Change color of the social media icons **/
+/** This CSS targets the 'a'/anchor tags/elements of the class 'socials', and changes the colors to black
+ instead of blue which was the initial color given from the background **/
+.socials a {
+    color:black;
+}
+
+/** Button Click Effect/Animation **/
+/** This css targets all elements of the '.btn' class. Creates the button effect and look **/
+.btn {
+    padding: 5px 15px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: blue;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+}
+
+/** Button Click Effect/Animation **/
+/** This css targets all elements of the '.btn' class. Simulates the pressing of the button **/
+.btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
+}
+
+
+
